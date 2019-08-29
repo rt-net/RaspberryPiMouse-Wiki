@@ -2,6 +2,8 @@
 
 このページでは[Raspberry Pi Mouse](https://www.rt-net.jp/products/raspimouse2)に関するよくある質問やデバイスドライバの動作確認情報をまとめています。
 
+[English Version](https://github.com/rt-net/RaspberryPiMouse/wiki/English)
+
 ## よくある質問
 
 ### `insmod`ができない
