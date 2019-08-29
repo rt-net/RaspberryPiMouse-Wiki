@@ -1,0 +1,10 @@
+sudo: false
+before_script:
+- if ["$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+  bash -eu ./bin/prepare_sync.sh; fi
+script:
+- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+  bash -eu ./bin/sync.sh; fi
+before_install:
+- openssl aes-256-cbc -K $encrypted_02c8af4b131a_key -iv $encrypted_02c8af4b131a_iv
+  -in github_deploy_key.enc -out .travis/github_deploy_key -d
