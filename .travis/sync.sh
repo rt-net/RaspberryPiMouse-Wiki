@@ -8,3 +8,6 @@ git fetch origin
 git fetch upstream
 git merge upstream/master --no-edit
 git push upstream HEAD:master > /dev/null 2>&1
+git remote remove origin
+git remote add origin source-of-wiki:rt-net/RaspberryPiMouse-Wiki.git > /dev/null 2>&1
+git push origin HEAD:master > /dev/null 2>&1

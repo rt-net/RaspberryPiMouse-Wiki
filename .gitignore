@@ -1,4 +1,6 @@
-.travis/github_deploy_key
+.travis/github_deploy_key*
+!.travis/github_deploy_key*.pub
+!.travis/github_deploy_key*.enc
 
 ### https://raw.github.com/github/gitignore/26f49b0c26f639c44b02451426f32fc582bdef1d/Global/macOS.gitignore
 
