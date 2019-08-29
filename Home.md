@@ -12,7 +12,7 @@
   * Raspberry Piを使った左右独立二輪方式の小型移動プラットフォームロボット、Raspberry Pi Mouseのハードウェア情報
 * [GitHub: raspimouse_ros](https://github.com/rt-net/ryuichiueda/raspimouse_ros)
   * Raspberry Pi Mouse用ROS1パッケージ(Python版)
-* [GitHub: raspimouse_ros2](https://github.com/ryuichiueda/raspimouse_ros2)
+* [GitHub: raspimouse_ros_2](https://github.com/ryuichiueda/raspimouse_ros_2)
   * Raspberry Pi Mouse用ROS1パッケージ(C++版)
 * [ROS Wiki: raspimouse_ros](http://wiki.ros.org/ja/raspimouse_ros)
   * Raspberry Pi MouseのROS Wiki
