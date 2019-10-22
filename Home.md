@@ -14,6 +14,8 @@
   * Raspberry Pi Mouse用ROS1パッケージ(Python版)
 * [GitHub: raspimouse_ros_2](https://github.com/ryuichiueda/raspimouse_ros_2)
   * Raspberry Pi Mouse用ROS1パッケージ(C++版)
+* [GitHub: raspimouse2](https://github.com/rt-net/raspimouse2)
+  * Raspberry Pi Mouse用ROS2パッケージ
 * [ROS Wiki: raspimouse_ros](http://wiki.ros.org/ja/raspimouse_ros)
   * Raspberry Pi MouseのROS Wiki
 
