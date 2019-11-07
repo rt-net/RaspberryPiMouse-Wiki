@@ -31,3 +31,10 @@
 ### 株式会社アールティにて動作確認しているOS/カーネル
 
 ### ユーザが動作確認したOS/カーネル
+
+* 4.4.0-1080-raspi2
+  * 報告者: [@Tiryoh](https://github.com/Tiryoh)
+  ```
+  $ uname -a
+  Linux ubuntu 4.4.0-1080-raspi2 #88-Ubuntu SMP Mon Dec 11 14:23:15 UTC 2017 armv7l armv7l armv7l GNU/Linux
+  ```
