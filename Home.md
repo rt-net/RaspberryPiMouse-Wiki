@@ -38,6 +38,12 @@
   $ uname -a
   Linux ubuntu 4.4.0-1080-raspi2 #88-Ubuntu SMP Mon Dec 11 14:23:15 UTC 2017 armv7l armv7l armv7l GNU/Linux
   ```
+* 4.15.0-1041-raspi2
+  * 報告者: [@Tiryoh](https://github.com/Tiryoh)
+  ```
+  $ uname -a
+  Linux ubuntu 4.15.0-1041-raspi2 #44-Ubuntu SMP PREEMPT Wed Jul 3 15:45:20 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux
+  ```
 * 4.15.0-1048-raspi2
   * 報告者: [@Tiryoh](https://github.com/Tiryoh)
   ```
