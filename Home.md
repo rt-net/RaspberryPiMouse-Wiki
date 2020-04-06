@@ -6,15 +6,15 @@
 
 ## 関連ページ
 
-* [GitHub: RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
+* [GitHub: rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
   * Raspberry Pi Mouseのデバイスドライバ
-* [GitHub: RaspberryPiMouse_Hardware](https://github.com/rt-net/RaspberryPiMouse_Hardware)
+* [GitHub: rt-net/RaspberryPiMouse_Hardware](https://github.com/rt-net/RaspberryPiMouse_Hardware)
   * Raspberry Piを使った左右独立二輪方式の小型移動プラットフォームロボット、Raspberry Pi Mouseのハードウェア情報
-* [GitHub: raspimouse_ros](https://github.com/rt-net/ryuichiueda/raspimouse_ros)
+* [GitHub: ryuichiueda/raspimouse_ros](https://github.com/rt-net/ryuichiueda/raspimouse_ros)
   * Raspberry Pi Mouse用ROS1パッケージ(Python版)
-* [GitHub: raspimouse_ros_2](https://github.com/ryuichiueda/raspimouse_ros_2)
+* [GitHub: ryuichiueda/raspimouse_ros_2](https://github.com/ryuichiueda/raspimouse_ros_2)
   * Raspberry Pi Mouse用ROS1パッケージ(C++版)
-* [GitHub: raspimouse2](https://github.com/rt-net/raspimouse2)
+* [GitHub: rt-net/raspimouse2](https://github.com/rt-net/raspimouse2)
   * Raspberry Pi Mouse用ROS2パッケージ
 * [ROS Wiki: raspimouse_ros](http://wiki.ros.org/ja/raspimouse_ros)
   * Raspberry Pi MouseのROS Wiki
