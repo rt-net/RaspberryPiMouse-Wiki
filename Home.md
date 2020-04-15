@@ -58,9 +58,9 @@
   Linux ubuntu 5.3.0-1017-raspi2 #19~18.04.1-Ubuntu SMP Fri Jan 17 11:14:07 UTC 2020 aarch64 aarch64 aarch64 GNU/Linux
   ```
 
-* 5.3.0-1021-raspi2
+* 5.3.0-1022-raspi2
   * 報告者: [@shu-rt](https://github.com/shu-rt)
   ```
   $ uname -a
-  Linux ubuntu 5.3.0-1021-raspi2 #23~18.04.1-Ubuntu SMP Fri Mar 27 16:16:12 UTC 2020 aarch64 aarch64 aarch64 GNU/Linux
+  Linux ubuntu 5.3.0-1022-raspi2 #24~18.04.1-Ubuntu SMP Fri Mar 28 00:52:28 UTC 2020 aarch64 aarch64 aarch64 GNU/Linux
   ```
