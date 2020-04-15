@@ -12,17 +12,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
 
-      - name: Sync (dry-run)
+      - name: Merge pull_request to master for sync dry-run
+        if: github.event_name == 'pull_request'
         run: |
           git config --local user.name "RT Corp."
           git config --local user.email "shop@rt-net.jp"
-          git remote add upstream https://github.com/rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch origin
+          git checkout origin/master
+          git merge --squash ${{ github.ref }}
+          echo "Merge PR ${{  }}" > /tmp/commit_message
+          echo "" >> /tmp/commit_message
+          echo "Co-authored-by: ${GITHUB_ACTOR} <${GITHUB_ACTOR}@users.noreply.github.com>" >> /tmp/commit_message
+          git commit -F- <<(cat /tmp/commit_message)
+
+      - name: Sync (dry-run)
+        run: |
+          git fetch origin
+          git checkout origin/master
+          git remote add upstream https://github.com/rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch upstream
           git merge upstream/master --no-edit
           git status
           git log
+          git push --dry-run upstream HEAD:master
+          git push --dry-run origin HEAD:master
 
   sync:
     # if: github.ref == 'refs/heads/master' && ( github.event_name == 'push' || github.event_name == 'schedule' )
@@ -30,6 +46,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
 
       - name: Prepare SSH
         uses: webfactory/ssh-agent@v0.2.0
@@ -40,8 +58,9 @@ jobs:
         run: |
           git config --local user.name "RT Corp."
           git config --local user.email "shop@rt-net.jp"
-          git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch origin
+          git checkout origin/master
+          git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch upstream
           git merge upstream/master --no-edit
           git push upstream HEAD:master > /dev/null 2>&1
