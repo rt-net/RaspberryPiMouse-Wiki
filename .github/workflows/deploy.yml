@@ -20,25 +20,30 @@ jobs:
         run: |
           git config --local user.name "RT Corp."
           git config --local user.email "shop@rt-net.jp"
+          git checkout -b current HEAD
+          if [[ $(git remote get-url origin | grep "rt-net/RaspberryPiMouse-Wiki") ]]; then
+            echo ""
+          else
+            git remote remove origin
+            git remote add origin https://github.com/rt-net/RaspberryPiMouse-wiki.git
+          fi
           git fetch origin
           git checkout -b master origin/master
-          git merge --squash ${GITHUB_REF#refs/heads/}
-          echo "Merge PR ${GITHUB_REF#refs/heads/}" > /tmp/commit_message
+          git merge --squash current
+          echo "Merge Pull Request" > /tmp/commit_message
           echo "" >> /tmp/commit_message
           echo "Co-authored-by: ${GITHUB_ACTOR} <${GITHUB_ACTOR}@users.noreply.github.com>" >> /tmp/commit_message
-          git commit -F- <<(cat /tmp/commit_message)
+          git commit -F /tmp/commit_message
 
       - name: Sync (dry-run)
         run: |
           git fetch origin
-          git checkout -b master origin/master
+          git checkout master
           git remote add upstream https://github.com/rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch upstream
           git merge upstream/master --no-edit
           git status
-          git log
-          git push --dry-run upstream HEAD:master
-          git push --dry-run origin HEAD:master
+          git log | head -n20
 
   sync:
     if: github.ref == 'refs/heads/master' && ( github.event_name == 'push' || github.event_name == 'schedule' )
