@@ -57,7 +57,7 @@ jobs:
       - name: Prepare SSH
         uses: webfactory/ssh-agent@v0.2.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_RASPBERRYPIMOUSE_WIKI }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_RASPBERRYPIMOUSE }}
 
       - name: Sync
         run: |
