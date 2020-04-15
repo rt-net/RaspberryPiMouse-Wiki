@@ -46,7 +46,7 @@ jobs:
           git log | head -n20
 
   sync:
-    if: github.ref == 'refs/heads/master' && ( github.event_name == 'push' || github.event_name == 'schedule' )
+    # if: github.ref == 'refs/heads/master' && ( github.event_name == 'push' || github.event_name == 'schedule' )
     needs: dry-run
     runs-on: ubuntu-latest
     steps:
@@ -68,5 +68,5 @@ jobs:
           git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch upstream
           git merge upstream/master --no-edit
-          git push upstream HEAD:master > /dev/null 2>&1
-          git push origin HEAD:master > /dev/null 2>&1
+          git push --dry-run upstream HEAD:master > /dev/null 2>&1
+          git push --dry-run origin HEAD:master > /dev/null 2>&1
