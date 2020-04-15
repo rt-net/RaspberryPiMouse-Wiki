@@ -13,10 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check Git Repository Status
-        id: git_repo
-        run: echo "::set-output name=modified::$(git status --porcelain)"
-
       - name: Sync (dry-run)
         if: steps.git_repo.outputs.modified != ''
         run: |
@@ -35,18 +31,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check Git Repository Status
-        id: git_repo
-        run: echo "::set-output name=modified::$(git status --porcelain)"
-
       - name: Prepare SSH
-        if: steps.git_repo.outputs.modified != ''
         uses: webfactory/ssh-agent@v0.2.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_RASPBERRYPIMOUSE_WIKI }}
 
       - name: Sync
-        if: steps.git_repo.outputs.modified != ''
         run: |
           git config --local user.name "RT Corp."
           git config --local user.email "shop@rt-net.jp"
