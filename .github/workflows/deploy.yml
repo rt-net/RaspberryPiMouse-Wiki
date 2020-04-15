@@ -1,0 +1,56 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check Git Repository Status
+        id: git_repo
+        run: echo "::set-output name=modified::$(git status --porcelain)"
+
+      - name: Sync (dry-run)
+        if: steps.git_repo.outputs.modified != ''
+        run: |
+          git config --local user.name "RT Corp."
+          git config --local user.email "shop@rt-net.jp"
+          git remote add upstream https://github.com/rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
+          git fetch origin
+          git fetch upstream
+          git merge upstream/master --no-edit
+          git status
+          git log
+  sync:
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    needs: dry-run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check Git Repository Status
+        id: git_repo
+        run: echo "::set-output name=modified::$(git status --porcelain)"
+
+      - name: Prepare SSH
+        if: steps.git_repo.outputs.modified != ''
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_RASPBERRYPIMOUSE_WIKI }}
+
+      - name: Sync
+        if: steps.git_repo.outputs.modified != ''
+        run: |
+          git config --local user.name "RT Corp."
+          git config --local user.email "shop@rt-net.jp"
+          git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
+          git fetch origin
+          git fetch upstream
+          git merge upstream/master --no-edit
+          git push upstream HEAD:master > /dev/null 2>&1
+          git push origin HEAD:master > /dev/null 2>&1
