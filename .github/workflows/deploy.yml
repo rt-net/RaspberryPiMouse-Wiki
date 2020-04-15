@@ -68,5 +68,6 @@ jobs:
           git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch upstream
           git merge upstream/master --no-edit
-          git push --dry-run upstream HEAD:master > /dev/null 2>&1
-          git push --dry-run origin HEAD:master > /dev/null 2>&1
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v2
