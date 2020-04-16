@@ -8,18 +8,27 @@ on:
   schedule:
     - cron: "5 1 * * 2" # Weekly on Tuesdays at 1:05(GMT)
 jobs:
-  dry-run:
+  sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: "0"
 
-      - name: Merge pull_request to master for sync dry-run
-        if: github.event_name == 'pull_request'
+      - name: Prepare SSH
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_RASPBERRYPIMOUSE }}
+
+      - name: Setup Git
         run: |
           git config --local user.name "RT Corp."
           git config --local user.email "shop@rt-net.jp"
+          git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
+
+      - name: Merge PR (dry-run)
+        if: github.event_name == 'pull_request'
+        run: |
           git checkout -b current HEAD
           if [[ $(git remote get-url origin | grep "rt-net/RaspberryPiMouse-Wiki") ]]; then
             echo ""
@@ -35,7 +44,7 @@ jobs:
           echo "Co-authored-by: ${GITHUB_ACTOR} <${GITHUB_ACTOR}@users.noreply.github.com>" >> /tmp/commit_message
           git commit -F /tmp/commit_message
 
-      - name: Sync (dry-run)
+      - name: Merge
         run: |
           git fetch origin
           git checkout master
@@ -45,28 +54,8 @@ jobs:
           git status
           git log | head -n20
 
-  sync:
-    if: github.ref == 'refs/heads/master' && ( github.event_name == 'push' || github.event_name == 'schedule' )
-    needs: dry-run
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: "0"
-
-      - name: Prepare SSH
-        uses: webfactory/ssh-agent@v0.2.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_RASPBERRYPIMOUSE }}
-
       - name: Sync
+        if: github.ref == 'refs/heads/master' && ( github.event_name == 'push' || github.event_name == 'schedule' )
         run: |
-          git config --local user.name "RT Corp."
-          git config --local user.email "shop@rt-net.jp"
-          git fetch origin
-          git checkout -b master origin/master
-          git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
-          git fetch upstream
-          git merge upstream/master --no-edit
           git push upstream HEAD:master > /dev/null 2>&1
           git push origin HEAD:master > /dev/null 2>&1
