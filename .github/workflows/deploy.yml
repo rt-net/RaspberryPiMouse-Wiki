@@ -48,7 +48,6 @@ jobs:
         run: |
           git fetch origin
           git checkout master
-          git remote add upstream https://github.com/rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
           git fetch upstream
           git merge upstream/master --no-edit
           git status
