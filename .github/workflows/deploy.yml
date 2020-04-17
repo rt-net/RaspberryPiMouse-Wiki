@@ -1,0 +1,60 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize]
+  schedule:
+    - cron: "5 1 * * 2" # Weekly on Tuesdays at 1:05(GMT)
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+
+      - name: Prepare SSH
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_RASPBERRYPIMOUSE }}
+
+      - name: Setup Git
+        run: |
+          git config --local user.name "RT Corp."
+          git config --local user.email "shop@rt-net.jp"
+          git remote add upstream git@github.com:rt-net/RaspberryPiMouse.wiki.git > /dev/null 2>&1
+
+      - name: Merge PR (dry-run)
+        if: github.event_name == 'pull_request'
+        run: |
+          git checkout -b current HEAD
+          if [[ $(git remote get-url origin | grep "rt-net/RaspberryPiMouse-Wiki") ]]; then
+            echo ""
+          else
+            git remote remove origin
+            git remote add origin https://github.com/rt-net/RaspberryPiMouse-wiki.git
+          fi
+          git fetch origin
+          git checkout -b master origin/master
+          git merge --squash current
+          echo "Merge Pull Request" > /tmp/commit_message
+          echo "" >> /tmp/commit_message
+          echo "Co-authored-by: ${GITHUB_ACTOR} <${GITHUB_ACTOR}@users.noreply.github.com>" >> /tmp/commit_message
+          git commit -F /tmp/commit_message
+
+      - name: Merge
+        run: |
+          git fetch origin
+          git checkout master
+          git fetch upstream
+          git merge upstream/master --no-edit
+          git status
+          git log | head -n20
+
+      - name: Sync
+        if: github.ref == 'refs/heads/master' && ( github.event_name == 'push' || github.event_name == 'schedule' )
+        run: |
+          git push upstream HEAD:master > /dev/null 2>&1
+          git push origin HEAD:master > /dev/null 2>&1
