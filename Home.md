@@ -50,3 +50,17 @@
   $ uname -a
   Linux ubuntu 4.15.0-1048-raspi2 #52-Ubuntu SMP PREEMPT Wed Sep 18 08:57:33 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux
   ```
+
+* 5.3.0-1017-raspi2
+  * 報告者: [@shu-rt](https://github.com/shu-rt)
+  ```
+  $ uname -a
+  Linux ubuntu 5.3.0-1017-raspi2 #19~18.04.1-Ubuntu SMP Fri Jan 17 11:14:07 UTC 2020 aarch64 aarch64 aarch64 GNU/Linux
+  ```
+
+* 5.3.0-1022-raspi2
+  * 報告者: [@shu-rt](https://github.com/shu-rt)
+  ```
+  $ uname -a
+  Linux ubuntu 5.3.0-1022-raspi2 #24~18.04.1-Ubuntu SMP Fri Mar 28 00:52:28 UTC 2020 aarch64 aarch64 aarch64 GNU/Linux
+  ```
